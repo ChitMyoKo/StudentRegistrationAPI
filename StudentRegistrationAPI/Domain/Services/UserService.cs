@@ -1,11 +1,40 @@
 ﻿using StudentRegistrationAPI.Domain.DAO;
 using StudentRegistrationAPI.Models;
+using StudentRegistrationAPI.Resources;
 using System;
 
 namespace StudentRegistrationAPI.Domain.Services
 {
     public class UserService
     {
+        public AccountCreateResponseModel CreateUserAccount(AccountCreateRequestModel requestModel)
+        {
+            AccountCreateResponseModel responseModel = new AccountCreateResponseModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
+            UserDAO userDAO = new UserDAO();
+
+            bool doesUsernameExist = userDAO.CheckUsernameExist(requestModel.UserName);
+            if (doesUsernameExist)
+            {
+                responseModel.RespCode = ResponseCode.C001;
+                responseModel.RespDescription = Message.M001;
+                return responseModel;
+            }
+
+            bool doesEmailExist = userDAO.CheckEmailExist(requestModel.Email);
+            if (doesEmailExist)
+            {
+                responseModel.RespCode = ResponseCode.C002;
+                responseModel.RespDescription = Message.M002;
+                return responseModel;
+            }
+
+            requestModel.UserId = Guid.NewGuid().ToString();
+            userDAO.CreateUserAccount(requestModel);
+
+            return responseModel;
+        }
+
+
         public bool CheckSessionAlive(string sessionId, string userId)
         {
             bool result = false;
@@ -44,9 +73,9 @@ namespace StudentRegistrationAPI.Domain.Services
         
         public string GetDynamicKeyByUserId(string userId)
         {
-            UserService userService = new UserService();
+            UserDAO userDAO = new UserDAO();
 
-            return userService.GetDynamicKeyByUserId(userId);
+            return userDAO.GetDynamicKeyByUserId(userId);
         }
     }
 }

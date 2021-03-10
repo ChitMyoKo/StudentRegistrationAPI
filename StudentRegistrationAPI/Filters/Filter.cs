@@ -17,22 +17,17 @@ namespace StudentRegistrationAPI.Filters
             string hardcodekey = Helper.HardCodeKeyForAES();
             string hardcodeIV = Helper.HardCodeIVForAES();
 
+            UserService userService = new UserService();
+
             string paraKey = filterContext.ActionParameters.Keys.OfType<string>().FirstOrDefault();
             if (!string.IsNullOrEmpty(paraKey))
             {
-                TestModel testModel = filterContext.ActionParameters[paraKey] as TestModel;
+                ApiRequestModel reqModel = filterContext.ActionParameters[paraKey] as ApiRequestModel;
+                reqModel.SessionID = RijndaelCrypt.DecryptAES(reqModel.SessionID, hardcodekey, hardcodeIV);
 
-                UserService userService = new UserService();
+                bool isSessionAlive = userService.CheckSessionAlive(reqModel.SessionID, reqModel.UserId);
 
-                //testModel.SessionID = RijndaelCrypt.DecryptAES(testModel.SessionID, hardcodekey, hardcodeIV);
-
-                //bool isSessionAlive = userService.CheckSessionAlive(testModel.SessionID, testModel.UserId);
-
-                //if (!isSessionAlive)
-                //{
-                //    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { action = "SessionExpired", controller = "Base" }));
-                //}
-                if(testModel.SessionID != "123")
+                if (!isSessionAlive)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { action = "SessionExpired", controller = "Base" }));
                 }
