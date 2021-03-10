@@ -157,6 +157,7 @@
     <Compile Include="Domain\Services\UserService.cs" />
     <Compile Include="Filters\DecryptionFilter.cs" />
     <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\HardcodeDecryptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
