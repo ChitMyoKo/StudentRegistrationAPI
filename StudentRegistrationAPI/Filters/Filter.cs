@@ -1,39 +1,45 @@
-﻿using StudentRegistrationAPI.Domain.Services;
+﻿using Newtonsoft.Json;
+using StudentRegistrationAPI.Controllers;
+using StudentRegistrationAPI.Domain.Services;
 using StudentRegistrationAPI.Helpers;
 using StudentRegistrationAPI.Models;
+using StudentRegistrationAPI.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
+using System.Web.Http.Results;
 using System.Web.Routing;
 
 namespace StudentRegistrationAPI.Filters
 {
     public class SessionFilter : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(HttpActionContext actionContext)
         {
             string hardcodekey = Helper.HardCodeKeyForAES();
             string hardcodeIV = Helper.HardCodeIVForAES();
 
             UserService userService = new UserService();
 
-            string paraKey = filterContext.ActionParameters.Keys.OfType<string>().FirstOrDefault();
+            string paraKey = actionContext.ActionArguments.Keys.OfType<string>().FirstOrDefault();
             if (!string.IsNullOrEmpty(paraKey))
             {
-                ApiRequestModel reqModel = filterContext.ActionParameters[paraKey] as ApiRequestModel;
+                ApiRequestModel reqModel = actionContext.ActionArguments[paraKey] as ApiRequestModel;
                 reqModel.SessionID = RijndaelCrypt.DecryptAES(reqModel.SessionID, hardcodekey, hardcodeIV);
-
+                
                 bool isSessionAlive = userService.CheckSessionAlive(reqModel.SessionID, reqModel.UserId);
 
                 if (!isSessionAlive)
                 {
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { action = "SessionExpired", controller = "Base" }));
+                    BaseController baseController = new BaseController();
+                    actionContext.Response = baseController.ConvertToHttpResponseMessage(ResponseCode.C098, Message.M098);
                 }
             }
-
-            base.OnActionExecuting(filterContext);
+            base.OnActionExecuting(actionContext);
         }
     }
 }

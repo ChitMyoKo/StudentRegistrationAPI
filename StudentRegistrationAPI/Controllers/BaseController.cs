@@ -15,30 +15,6 @@ namespace StudentRegistrationAPI.Controllers
     {
         private HttpResponseMessage responseMessage;
 
-        public async Task<HttpResponseMessage> SessionExpired()
-        {
-            var response = new HttpResponseMessage()
-            {
-                StatusCode = System.Net.HttpStatusCode.Unauthorized
-            };
-
-            return await Task.FromResult(response);
-        }
-
-        public async Task<HttpResponseMessage> DecryptionError()
-        {
-            ApiResponseModel response = new ApiResponseModel();
-            response.RespCode = ResponseCode.C014;
-            response.RespDescription = Message.M014;
-
-            responseMessage = new HttpResponseMessage()
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(response))
-            };
-
-            return await Task.FromResult(responseMessage);
-        }
-
         public HttpResponseMessage ConvertToHttpResponseMessage(string RespCode, string RespDescription)
         {
             ApiResponseModel model = new ApiResponseModel();

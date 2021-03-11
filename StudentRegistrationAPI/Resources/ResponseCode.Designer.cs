@@ -106,6 +106,24 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 005.
+        /// </summary>
+        public static string C005 {
+            get {
+                return ResourceManager.GetString("C005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 006.
+        /// </summary>
+        public static string C006 {
+            get {
+                return ResourceManager.GetString("C006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 008.
         /// </summary>
         public static string C008 {
@@ -120,6 +138,15 @@ namespace StudentRegistrationAPI.Resources {
         public static string C014 {
             get {
                 return ResourceManager.GetString("C014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 098.
+        /// </summary>
+        public static string C098 {
+            get {
+                return ResourceManager.GetString("C098", resourceCulture);
             }
         }
     }

@@ -132,10 +132,19 @@
   <data name="C004" xml:space="preserve">
     <value>004</value>
   </data>
+  <data name="C005" xml:space="preserve">
+    <value>005</value>
+  </data>
+  <data name="C006" xml:space="preserve">
+    <value>006</value>
+  </data>
   <data name="C008" xml:space="preserve">
     <value>008</value>
   </data>
   <data name="C014" xml:space="preserve">
     <value>014</value>
+  </data>
+  <data name="C098" xml:space="preserve">
+    <value>098</value>
   </data>
 </root>

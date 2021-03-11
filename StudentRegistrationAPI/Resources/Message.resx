@@ -132,10 +132,19 @@
   <data name="M004" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
+  <data name="M005" xml:space="preserve">
+    <value>NRC already exist</value>
+  </data>
+  <data name="M006" xml:space="preserve">
+    <value>Student number already exist</value>
+  </data>
   <data name="M008" xml:space="preserve">
     <value>is required.</value>
   </data>
   <data name="M014" xml:space="preserve">
     <value>System Error</value>
+  </data>
+  <data name="M098" xml:space="preserve">
+    <value>Session expired</value>
   </data>
 </root>

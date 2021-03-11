@@ -96,6 +96,71 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO TBL_STUDENT
+        ///(STUDENTNO,NAME,FATHERNAME,NRC,ADDRESS,PHONE,EMAIL,GENDER,DOB,UNIVERSITYID,MAJORID,ACADEMICYEARID,ISDELETE,CREATEDDATE,CREATEDUSERID) 
+        ///VALUES (@STUDENTNO,@NAME,@FATHERNAME,@NRC,@ADDRESS,@PHONE,@EMAIL,@GENDER,@DOB,@UNIVERSITYID,@MAJORID,@ACADEMICYEARID,@ISDELETE,@CREATEDDATE,@CREATEDUSERID);.
+        /// </summary>
+        public static string InsertStudent {
+            get {
+                return ResourceManager.GetString("InsertStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM [TBL_ACADEMICYEAR] WHERE ID = @ID AND ISDELETE = 0;.
+        /// </summary>
+        public static string SelectAcademicYearById {
+            get {
+                return ResourceManager.GetString("SelectAcademicYearById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_STUDENT WHERE ISDELETE = 0;.
+        /// </summary>
+        public static string SelectAllStudent {
+            get {
+                return ResourceManager.GetString("SelectAllStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM [TBL_MAJOR] WHERE ID = @ID AND ISDELETE = 0;.
+        /// </summary>
+        public static string SelectMajorById {
+            get {
+                return ResourceManager.GetString("SelectMajorById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_STUDENT WHERE NRC = @NRC;.
+        /// </summary>
+        public static string SelectStudnetByNRC {
+            get {
+                return ResourceManager.GetString("SelectStudnetByNRC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_STUDENT WHERE STUDENTNO = @StudentNo;.
+        /// </summary>
+        public static string SelectStudnetByStudentNo {
+            get {
+                return ResourceManager.GetString("SelectStudnetByStudentNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM [TBL_UNIVERSITY] WHERE ID = @ID AND ISDELETE = 0;.
+        /// </summary>
+        public static string SelectUniversityById {
+            get {
+                return ResourceManager.GetString("SelectUniversityById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UPDATE TBL_USER SET DYNAMICKEY = @DYNAMICKEY, ISLOGIN = @ISLOGIN WHERE USERID = @USERID;.
         /// </summary>
         public static string User_UpdateKeyAndStatus {

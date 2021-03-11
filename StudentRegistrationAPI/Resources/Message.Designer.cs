@@ -106,6 +106,24 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NRC already exist.
+        /// </summary>
+        public static string M005 {
+            get {
+                return ResourceManager.GetString("M005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Student number already exist.
+        /// </summary>
+        public static string M006 {
+            get {
+                return ResourceManager.GetString("M006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is required..
         /// </summary>
         public static string M008 {
@@ -120,6 +138,15 @@ namespace StudentRegistrationAPI.Resources {
         public static string M014 {
             get {
                 return ResourceManager.GetString("M014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session expired.
+        /// </summary>
+        public static string M098 {
+            get {
+                return ResourceManager.GetString("M098", resourceCulture);
             }
         }
     }

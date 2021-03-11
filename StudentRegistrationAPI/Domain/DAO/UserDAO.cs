@@ -88,31 +88,6 @@ namespace StudentRegistrationAPI.Domain.DAO
             return user;
         }
 
-        public bool CheckUsernameExist(string userName)
-        {
-            bool result = false;
-
-            using (SqlConnection con = this.OpenConnection())
-            {
-                var cmd = con.CreateCommand();
-                cmd.CommandText = "SELECT * FROM [TBL_USER] WHERE USERNAME = @UserName;";
-                cmd.Parameters.AddWithValue("@UserName", userName);
-
-                using (SqlDataReader rd = cmd.ExecuteReader())
-                {
-                    while (rd.Read())
-                    {
-                        result = true;
-                    }
-
-                    rd.Close();
-                }
-                con.Close();
-            }
-            return result;
-
-        }
-
         public int CreateUserAccount(AccountCreateRequestModel requestModel)
         {
             using (SqlConnection con = this.OpenConnection())
@@ -150,6 +125,31 @@ namespace StudentRegistrationAPI.Domain.DAO
             }
         }
 
+        public bool CheckUsernameExist(string userName)
+        {
+            bool result = false;
+
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = "SELECT * FROM [TBL_USER] WHERE USERNAME = @UserName;";
+                cmd.Parameters.AddWithValue("@UserName", userName);
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        result = true;
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return result;
+
+        }
+        
         public bool CheckEmailExist(string email)
         {
             bool result = false;
