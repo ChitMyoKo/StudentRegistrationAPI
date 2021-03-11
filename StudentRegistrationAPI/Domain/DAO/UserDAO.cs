@@ -58,6 +58,36 @@ namespace StudentRegistrationAPI.Domain.DAO
             return key.Trim();
         }
     
+        public User GetUserByUsernameOrEmail(string userName, string email)
+        {
+            User user = null;
+
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = "select * from TBL_USER where (USERNAME = @Username OR EMAIL = @Email) and ISDELETE = 0;";
+                cmd.Parameters.AddWithValue("@Username", GetNull(userName));
+                cmd.Parameters.AddWithValue("@Email", GetNull(email));
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        user = new User();
+                        user.UserId = GetValue<string>(rd["USERID"]);
+                        user.UserName = GetValue<string>(rd["USERNAME"]);
+                        user.FullName = GetValue<string>(rd["FULLNAME"]);
+                        user.Email = GetValue<string>(rd["EMAIL"]);
+                        user.Password = GetValue<string>(rd["PASSWORD"]);
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return user;
+        }
+
         public bool CheckUsernameExist(string userName)
         {
             bool result = false;
@@ -97,6 +127,22 @@ namespace StudentRegistrationAPI.Domain.DAO
                 cmd.Parameters.AddWithValue("@ISLOGIN", "0");
                 cmd.Parameters.AddWithValue("@ISDELETE", "0");
                 cmd.Parameters.AddWithValue("@CREATEDDATE", DateTime.Now);
+
+                int affectedRowCount = cmd.ExecuteNonQuery();
+                con.Close();
+                return affectedRowCount;
+            }
+        }
+
+        public int UpdateDynamicKeyAndLoginstatus(string userId, string dynamicKey, string status)
+        {
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.User_UpdateKeyAndStatus;
+                cmd.Parameters.AddWithValue("@DYNAMICKEY", dynamicKey);
+                cmd.Parameters.AddWithValue("@ISLOGIN", status);
+                cmd.Parameters.AddWithValue("@USERID", userId);
 
                 int affectedRowCount = cmd.ExecuteNonQuery();
                 con.Close();

@@ -1,4 +1,5 @@
 ﻿using StudentRegistrationAPI.Models;
+using StudentRegistrationAPI.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -86,5 +87,22 @@ namespace StudentRegistrationAPI.Domain.DAO
             }
         }
 
+        public int Insert(LoginModel requestModel)
+        {
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.InsertLogin;
+                cmd.Parameters.AddWithValue("@USERID", requestModel.UserId);
+                cmd.Parameters.AddWithValue("@SESSIONID", requestModel.SessionId);
+                cmd.Parameters.AddWithValue("@DYNAMICKEY", requestModel.DynamicKey);
+                cmd.Parameters.AddWithValue("@SESSIONEXPIREDATE", requestModel.SessionExpireDate);
+                cmd.Parameters.AddWithValue("@LOGINDATE", requestModel.LoginDate);
+
+                int affectedRowCount = cmd.ExecuteNonQuery();
+                con.Close();
+                return affectedRowCount;
+            }
+        }
     }
 }

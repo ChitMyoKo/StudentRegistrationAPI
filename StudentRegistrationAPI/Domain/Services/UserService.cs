@@ -34,6 +34,63 @@ namespace StudentRegistrationAPI.Domain.Services
             return responseModel;
         }
 
+        public LoginResposeModel Login(LoginRequestModel requestModel)
+        {
+            LoginResposeModel resposeModel = new LoginResposeModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
+            UserDAO userDAO = new UserDAO();
+
+            User userInfo = userDAO.GetUserByUsernameOrEmail(requestModel.UserName, requestModel.Email);
+
+            if(userInfo == null)
+            {
+                resposeModel.RespCode = ResponseCode.C003;
+                resposeModel.RespDescription = Message.M003;
+                return resposeModel;
+            }
+
+            if (userInfo.Password != requestModel.Password)
+            {
+                resposeModel.RespCode = ResponseCode.C004;
+                resposeModel.RespDescription = Message.M004;
+                return resposeModel;
+            }
+
+            string sessionId = Guid.NewGuid().ToString().ToUpper();
+            string dynamicKey = Guid.NewGuid().ToString().ToUpper();
+
+            DateTime now = DateTime.Now;
+            TimeSpan sessionDuration = new TimeSpan(0, 0, 15, 0); // session duration
+            DateTime expireTime = now.Add(sessionDuration);
+
+            LoginModel loginModel = new LoginModel();
+
+            loginModel.UserId = userInfo.UserId;
+            loginModel.SessionId = sessionId;
+            loginModel.DynamicKey = dynamicKey;
+
+            loginModel.SessionExpireDate = expireTime;
+            loginModel.LoginDate = DateTime.Now;
+
+            LoginDAO loginDAO = new LoginDAO();
+            loginDAO.Insert(loginModel);
+
+            int result = userDAO.UpdateDynamicKeyAndLoginstatus(userInfo.UserId, dynamicKey, "1");
+
+            if(result <= 0)
+            {
+                resposeModel.RespCode = ResponseCode.C014;
+                resposeModel.RespDescription = Message.M014;
+                return resposeModel;
+            }
+
+            resposeModel.DynamicKey = dynamicKey;
+            resposeModel.SessionId = sessionId;
+            resposeModel.UserId = userInfo.UserId;
+            resposeModel.FullName = userInfo.FullName;
+            resposeModel.UserName = userInfo.UserName;
+
+            return resposeModel;
+        }
 
         public bool CheckSessionAlive(string sessionId, string userId)
         {
@@ -50,7 +107,7 @@ namespace StudentRegistrationAPI.Domain.Services
             if (value > 0)
             {
                 DateTime date = DateTime.Now;
-                TimeSpan time = new TimeSpan(0, 0, 180, 0); // inactivity time 
+                TimeSpan time = new TimeSpan(0, 0, 15, 0); // inactivity time 
                 DateTime combined = date.Add(time);
 
                 //update session expire time in login table

@@ -126,6 +126,12 @@
   <data name="C002" xml:space="preserve">
     <value>002</value>
   </data>
+  <data name="C003" xml:space="preserve">
+    <value>003</value>
+  </data>
+  <data name="C004" xml:space="preserve">
+    <value>004</value>
+  </data>
   <data name="C008" xml:space="preserve">
     <value>008</value>
   </data>

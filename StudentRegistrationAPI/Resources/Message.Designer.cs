@@ -88,6 +88,24 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username or Email doesn&apos;t exist.
+        /// </summary>
+        public static string M003 {
+            get {
+                return ResourceManager.GetString("M003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect password.
+        /// </summary>
+        public static string M004 {
+            get {
+                return ResourceManager.GetString("M004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to is required..
         /// </summary>
         public static string M008 {

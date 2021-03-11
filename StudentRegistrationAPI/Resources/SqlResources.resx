@@ -137,4 +137,10 @@
            ,@ISDELETE
            ,@CREATEDDATE)</value>
   </data>
+  <data name="InsertLogin" xml:space="preserve">
+    <value>INSERT INTO TBL_LOGIN (USERID, SESSIONID, DYNAMICKEY, SESSIONEXPIREDATE, LOGINDATE) VALUES (@USERID, @SESSIONID, @DYNAMICKEY, @SESSIONEXPIREDATE, @LOGINDATE);</value>
+  </data>
+  <data name="User_UpdateKeyAndStatus" xml:space="preserve">
+    <value>UPDATE TBL_USER SET DYNAMICKEY = @DYNAMICKEY, ISLOGIN = @ISLOGIN WHERE USERID = @USERID;</value>
+  </data>
 </root>

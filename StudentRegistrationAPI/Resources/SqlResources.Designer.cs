@@ -85,5 +85,23 @@ namespace StudentRegistrationAPI.Resources {
                 return ResourceManager.GetString("CreateUserAccount", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO TBL_LOGIN (USERID, SESSIONID, DYNAMICKEY, SESSIONEXPIREDATE, LOGINDATE) VALUES (@USERID, @SESSIONID, @DYNAMICKEY, @SESSIONEXPIREDATE, @LOGINDATE);.
+        /// </summary>
+        public static string InsertLogin {
+            get {
+                return ResourceManager.GetString("InsertLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE TBL_USER SET DYNAMICKEY = @DYNAMICKEY, ISLOGIN = @ISLOGIN WHERE USERID = @USERID;.
+        /// </summary>
+        public static string User_UpdateKeyAndStatus {
+            get {
+                return ResourceManager.GetString("User_UpdateKeyAndStatus", resourceCulture);
+            }
+        }
     }
 }

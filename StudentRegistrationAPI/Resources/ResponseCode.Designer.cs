@@ -88,6 +88,24 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 003.
+        /// </summary>
+        public static string C003 {
+            get {
+                return ResourceManager.GetString("C003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 004.
+        /// </summary>
+        public static string C004 {
+            get {
+                return ResourceManager.GetString("C004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 008.
         /// </summary>
         public static string C008 {

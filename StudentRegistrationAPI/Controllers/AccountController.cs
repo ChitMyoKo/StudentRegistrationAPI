@@ -61,5 +61,43 @@ namespace StudentRegistrationAPI.Controllers
             return await Task.FromResult(responseMessage);
         }
 
+        [HardcodeDecryptionFilter]
+        [HttpPost]
+        [Route("Login")]
+        public async Task<HttpResponseMessage> Login(ApiRequestModel request)
+        {
+            ApiResponseModel response = new ApiResponseModel();
+            LoginRequestModel requestModel = new LoginRequestModel();
+            LoginResposeModel responseModel = new LoginResposeModel();
+
+            requestModel = JsonConvert.DeserializeObject<LoginRequestModel>(request.JsonStringRequest);
+
+            #region Check Null
+
+            var lstOptStr = new List<string>() { "UserName", "Email" };
+
+            var checkResponse = Helper.CheckNullWithObject(requestModel, lstOptStr);
+            if (!checkResponse.IsNotNull)
+            {
+                return await Task.FromResult(baseController.ConvertToHttpResponseMessage(ResponseCode.C008, checkResponse.RespDescription + Message.M008));
+            }
+
+            #endregion
+
+            UserService userService = new UserService();
+            responseModel = userService.Login(requestModel);
+
+            var responseData = JsonConvert.SerializeObject(responseModel);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.RespCode = responseModel.RespCode;
+            response.RespDescription = responseModel.RespDescription;
+
+            responseMessage = new HttpResponseMessage()
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(response))
+            };
+
+            return await Task.FromResult(responseMessage);
+        }
     }
 }
