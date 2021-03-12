@@ -80,5 +80,67 @@ namespace StudentRegistrationAPI.Domain.Services
 
             return responseModel;
         }
+        
+        public StudentDeleteResponseModel DeleteStudent(StudentDeleteRequestModel requestModel, string userId)
+        {
+            StudentDeleteResponseModel responseModel = new StudentDeleteResponseModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
+
+            StudentDAO studentDAO = new StudentDAO();
+
+            try
+            {
+                int effectedRow = studentDAO.DeleteStudent(requestModel.Id, userId);
+
+                if(effectedRow == 0)
+                {
+                    responseModel.RespCode = ResponseCode.C014;
+                    responseModel.RespDescription = Message.M014;
+                    return responseModel;
+                }
+
+                return responseModel;
+            }
+            catch(Exception e)
+            {
+                responseModel.RespCode = ResponseCode.C014;
+                responseModel.RespDescription = Message.M014;
+                return responseModel;
+            }
+
+            
+        }
+        
+        public CreateStudentResponseModel UpdateStudent(StudentUpdateRequestModel requestModel, string userId)
+        {
+            CreateStudentResponseModel responseModel = new CreateStudentResponseModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
+
+            StudentDAO studentDAO = new StudentDAO();
+
+            bool doesNRCExist = studentDAO.CheckNRCExistForUpdate(requestModel.NRC, requestModel.Id);
+            if(doesNRCExist)
+            {
+                responseModel.RespCode = ResponseCode.C005;
+                responseModel.RespDescription = Message.M005;
+                return responseModel;
+            }
+
+            bool doesStudenNoExist = studentDAO.CheckStudentNoExistForUpdate(requestModel.StudentNo, requestModel.Id);
+            if (doesStudenNoExist)
+            {
+                responseModel.RespCode = ResponseCode.C006;
+                responseModel.RespDescription = Message.M006;
+                return responseModel;
+            }
+
+            int effectedRow = studentDAO.UpdateStudent(requestModel, userId);
+            if(effectedRow == 0)
+            {
+                responseModel.RespCode = ResponseCode.C014;
+                responseModel.RespDescription = Message.M014;
+                return responseModel;
+            }
+
+            return responseModel;
+        }
     }
 }

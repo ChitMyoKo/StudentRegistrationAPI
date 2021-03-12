@@ -137,6 +137,9 @@
            ,@ISDELETE
            ,@CREATEDDATE)</value>
   </data>
+  <data name="DeleteStudent" xml:space="preserve">
+    <value>UPDATE TBL_STUDENT SET ISDELETE = 1, UPDATEDUSERID = @UPDATEDUSERID, UPDATEDDATE = @UPDATEDDATE WHERE ID = @ID;</value>
+  </data>
   <data name="InsertLogin" xml:space="preserve">
     <value>INSERT INTO TBL_LOGIN (USERID, SESSIONID, DYNAMICKEY, SESSIONEXPIREDATE, LOGINDATE) VALUES (@USERID, @SESSIONID, @DYNAMICKEY, @SESSIONEXPIREDATE, @LOGINDATE);</value>
   </data>
@@ -157,11 +160,20 @@ VALUES (@STUDENTNO,@NAME,@FATHERNAME,@NRC,@ADDRESS,@PHONE,@EMAIL,@GENDER,@DOB,@U
   <data name="SelectStudnetByNRC" xml:space="preserve">
     <value>SELECT * FROM TBL_STUDENT WHERE NRC = @NRC;</value>
   </data>
+  <data name="SelectStudnetByNRCForUpdate" xml:space="preserve">
+    <value>SELECT * FROM TBL_STUDENT WHERE NRC = @NRC AND ID &lt;&gt; @ID;</value>
+  </data>
   <data name="SelectStudnetByStudentNo" xml:space="preserve">
     <value>SELECT * FROM TBL_STUDENT WHERE STUDENTNO = @StudentNo;</value>
   </data>
+  <data name="SelectStudnetByStudentNoForUpdate" xml:space="preserve">
+    <value>SELECT * FROM TBL_STUDENT WHERE STUDENTNO = @StudentNo AND ID &lt;&gt; @ID ;</value>
+  </data>
   <data name="SelectUniversityById" xml:space="preserve">
     <value>SELECT * FROM [TBL_UNIVERSITY] WHERE ID = @ID AND ISDELETE = 0;</value>
+  </data>
+  <data name="UpdateUser" xml:space="preserve">
+    <value>UPDATE TBL_STUDENT SET STUDENTNO = @STUDENTNO, NAME = @NAME, FATHERNAME = @FATHERNAME, NRC = @NRC, ADDRESS = @ADDRESS, PHONE = @PHONE, EMAIL = @EMAIL, GENDER = @GENDER, DOB = @DOB, UNIVERSITYID = @UNIVERSITYID, MAJORID = @MAJORID, ACADEMICYEARID = @ACADEMICYEARID, UPDATEDATE = @UPDATEDDATE, UPDATEDUSERID = @UPDATEDUSERID WHERE ID = @ID;</value>
   </data>
   <data name="User_UpdateKeyAndStatus" xml:space="preserve">
     <value>UPDATE TBL_USER SET DYNAMICKEY = @DYNAMICKEY, ISLOGIN = @ISLOGIN WHERE USERID = @USERID;</value>
