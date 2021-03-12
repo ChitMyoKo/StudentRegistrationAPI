@@ -103,7 +103,7 @@ namespace StudentRegistrationAPI.Domain.DAO
                     while (rd.Read())
                     {
                         StudentDTO student = new StudentDTO();
-                        student.Id = GetValue<string>(rd["ID"]);
+                        student.Id = GetValue<int>(rd["ID"]).ToString();
                         student.StudentNo = GetValue<string>(rd["STUDENTNO"]);
                         student.Name = GetValue<string>(rd["NAME"]);
                         student.FatherName = GetValue<string>(rd["FATHERNAME"]);
@@ -113,9 +113,9 @@ namespace StudentRegistrationAPI.Domain.DAO
                         student.Email = GetValue<string>(rd["EMAIL"]);
                         student.Gender = GetValue<string>(rd["GENDER"]);
                         student.DateOfBirth = GetValue<string>(rd["DOB"]);
-                        student.UniversityId = GetValue<string>(rd["UNIVERSITYID"]);
-                        student.MajorId = GetValue<string>(rd["MAJORID"]);
-                        student.AcademicyearId = GetValue<string>(rd["ACADEMICYEARID"]);
+                        student.UniversityId = GetValue<int>(rd["UNIVERSITYID"]).ToString();
+                        student.MajorId = GetValue<int>(rd["MAJORID"]).ToString();
+                        student.AcademicyearId = GetValue<int>(rd["ACADEMICYEARID"]).ToString();
 
                         studenList.Add(student);
                     }

@@ -43,9 +43,9 @@ namespace StudentRegistrationAPI.Domain.DAO
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(ConnectionString))
+                using (SqlConnection con = this.OpenConnection())
                 {
-                    con.Open();
+                    //con.Open();
                     var cmd = con.CreateCommand();
                     cmd.CommandText = "update [dbo].[TBL_LOGIN] set SessionExpirDate=@SessionExpirDate where UserID=@Useid and sessionid=@sessionid;";
                     cmd.Parameters.AddWithValue("@Useid", model.UserId);
