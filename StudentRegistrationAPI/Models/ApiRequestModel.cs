@@ -10,5 +10,6 @@ namespace StudentRegistrationAPI.Models
         public string JsonStringRequest { get; set; }
         public string SessionID { get; set; }
         public string UserId { get; set; }
+        public string DynamicKey { get; set; }
     }
 }

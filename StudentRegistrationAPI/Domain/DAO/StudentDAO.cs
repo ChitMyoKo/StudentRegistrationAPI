@@ -45,7 +45,7 @@ namespace StudentRegistrationAPI.Domain.DAO
             using (SqlConnection con = this.OpenConnection())
             {
                 var cmd = con.CreateCommand();
-                cmd.CommandText = SqlResources.SelectStudnetByStudentNo;
+                cmd.CommandText = SqlResources.SelectStudnetByNRC;
                 cmd.Parameters.AddWithValue("@NRC", nrc);
 
                 using (SqlDataReader rd = cmd.ExecuteReader())

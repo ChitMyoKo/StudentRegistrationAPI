@@ -29,9 +29,9 @@ namespace StudentRegistrationAPI.Filters
                     reqModel.UserId = RijndaelCrypt.DecryptAES(reqModel.UserId, hardcodekey, hardcodeIV);
 
                     dynamickey = userService.GetDynamicKeyByUserId(reqModel.UserId);
+                    reqModel.DynamicKey = dynamickey;
                     reqModel.JsonStringRequest = RijndaelCrypt.DecryptAES(reqModel.JsonStringRequest, dynamickey, hardcodeIV);
 
-                    reqModel.JsonStringRequest = "modified json is here";
                     filterContext.ActionParameters.Remove(key);
                     filterContext.ActionParameters.Add(key, reqModel);
                 }

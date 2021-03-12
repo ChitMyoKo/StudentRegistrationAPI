@@ -151,8 +151,17 @@ VALUES (@STUDENTNO,@NAME,@FATHERNAME,@NRC,@ADDRESS,@PHONE,@EMAIL,@GENDER,@DOB,@U
   <data name="SelectAcademicYearById" xml:space="preserve">
     <value>SELECT * FROM [TBL_ACADEMICYEAR] WHERE ID = @ID AND ISDELETE = 0;</value>
   </data>
+  <data name="SelectAllAcademicyear" xml:space="preserve">
+    <value>SELECT * FROM TBL_ACADEMICYEAR WHERE ISDELETE = 0;</value>
+  </data>
+  <data name="SelectAllMajor" xml:space="preserve">
+    <value>SELECT * FROM TBL_MAJOR WHERE ISDELETE = 0;</value>
+  </data>
   <data name="SelectAllStudent" xml:space="preserve">
     <value>SELECT * FROM TBL_STUDENT WHERE ISDELETE = 0;</value>
+  </data>
+  <data name="SelectAllUniversity" xml:space="preserve">
+    <value>SELECT * FROM TBL_UNIVERSITY WHERE ISDELETE = 0;</value>
   </data>
   <data name="SelectMajorById" xml:space="preserve">
     <value>SELECT * FROM [TBL_MAJOR] WHERE ID = @ID AND ISDELETE = 0;</value>
