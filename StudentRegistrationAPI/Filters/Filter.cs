@@ -30,7 +30,7 @@ namespace StudentRegistrationAPI.Filters
             {
                 ApiRequestModel reqModel = actionContext.ActionArguments[paraKey] as ApiRequestModel;
                 reqModel.SessionID = RijndaelCrypt.DecryptAES(reqModel.SessionID, hardcodekey, hardcodeIV);
-                
+                reqModel.UserId = RijndaelCrypt.DecryptAES(reqModel.UserId, hardcodekey, hardcodeIV);
                 bool isSessionAlive = userService.CheckSessionAlive(reqModel.SessionID, reqModel.UserId);
 
                 if (!isSessionAlive)
