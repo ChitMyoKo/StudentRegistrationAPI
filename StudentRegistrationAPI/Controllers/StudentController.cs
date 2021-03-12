@@ -50,7 +50,7 @@ namespace StudentRegistrationAPI.Controllers
             responseModel = studentService.AddStudent(requestModel, request.UserId);
 
             var responseData = JsonConvert.SerializeObject(responseModel);
-            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);
             response.RespCode = responseModel.RespCode;
             response.RespDescription = responseModel.RespDescription;
 
@@ -75,7 +75,7 @@ namespace StudentRegistrationAPI.Controllers
             responseModel = studentService.GetAllStudents();
 
             var responseData = JsonConvert.SerializeObject(responseModel);
-            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);
             response.RespCode = responseModel.RespCode;
             response.RespDescription = responseModel.RespDescription;
 
@@ -103,7 +103,7 @@ namespace StudentRegistrationAPI.Controllers
             responseModel = studentService.DeleteStudent(requestModel, request.UserId);
 
             var responseData = JsonConvert.SerializeObject(responseModel);
-            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);
             response.RespCode = responseModel.RespCode;
             response.RespDescription = responseModel.RespDescription;
 
@@ -131,7 +131,7 @@ namespace StudentRegistrationAPI.Controllers
             responseModel = studentService.UpdateStudent(requestModel, request.UserId);
 
             var responseData = JsonConvert.SerializeObject(responseModel);
-            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);
             response.RespCode = responseModel.RespCode;
             response.RespDescription = responseModel.RespDescription;
 

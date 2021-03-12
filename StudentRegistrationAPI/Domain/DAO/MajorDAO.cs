@@ -1,4 +1,5 @@
-﻿using StudentRegistrationAPI.Resources;
+﻿using StudentRegistrationAPI.Models;
+using StudentRegistrationAPI.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -35,6 +36,33 @@ namespace StudentRegistrationAPI.Domain.DAO
                 con.Close();
             }
             return majorName;
+        }
+
+        public List<MajorModel> GetAllMajor()
+        {
+            List<MajorModel> majorList = new List<MajorModel>();
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.SelectAllMajor;
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        MajorModel major = new MajorModel();
+                        major.Id = GetValue<string>(rd["ID"]);
+                        major.Name = GetValue<string>(rd["NAME"]);
+                        major.UniversityId = GetValue<string>(rd["UNIVERSITYID"]);
+
+                        majorList.Add(major);
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return majorList;
         }
     }
 }

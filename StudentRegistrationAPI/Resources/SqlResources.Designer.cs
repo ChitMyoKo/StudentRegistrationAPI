@@ -125,11 +125,38 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_ACADEMICYEAR WHERE ISDELETE = 0;.
+        /// </summary>
+        public static string SelectAllAcademicyear {
+            get {
+                return ResourceManager.GetString("SelectAllAcademicyear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_MAJOR WHERE ISDELETE = 0;.
+        /// </summary>
+        public static string SelectAllMajor {
+            get {
+                return ResourceManager.GetString("SelectAllMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM TBL_STUDENT WHERE ISDELETE = 0;.
         /// </summary>
         public static string SelectAllStudent {
             get {
                 return ResourceManager.GetString("SelectAllStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_UNIVERSITY WHERE ISDELETE = 0;.
+        /// </summary>
+        public static string SelectAllUniversity {
+            get {
+                return ResourceManager.GetString("SelectAllUniversity", resourceCulture);
             }
         }
         
