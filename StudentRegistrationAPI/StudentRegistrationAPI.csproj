@@ -181,7 +181,9 @@
     <Compile Include="Models\LoginRequestModel.cs" />
     <Compile Include="Models\LoginResposeModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
+    <Compile Include="Models\StudentDeleteRequestModel.cs" />
     <Compile Include="Models\StudentDTO.cs" />
+    <Compile Include="Models\StudentUpdateRequestModel.cs" />
     <Compile Include="Models\StudnetListResponseModel.cs" />
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\User.cs" />

@@ -126,5 +126,100 @@ namespace StudentRegistrationAPI.Domain.DAO
             }
             return studenList;
         }
+        
+        public int DeleteStudent(string id, string userId)
+        {
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.DeleteStudent;
+                cmd.Parameters.AddWithValue("@UPDATEDUSERID", userId);
+                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Parameters.AddWithValue("@UPDATEDDATE", DateTime.Now.ToString());
+
+                int affectedRowCount = cmd.ExecuteNonQuery();
+                con.Close();
+                return affectedRowCount;
+            }
+        }
+
+        public bool CheckStudentNoExistForUpdate(string studentNo, string Id)
+        {
+            bool result = false;
+
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.SelectStudnetByStudentNoForUpdate;
+                cmd.Parameters.AddWithValue("@StudentNo", studentNo);
+                cmd.Parameters.AddWithValue("@ID", Id);
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        result = true;
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+        public bool CheckNRCExistForUpdate(string nrc, string Id)
+        {
+            bool result = false;
+
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.SelectStudnetByStudentNoForUpdate;
+                cmd.Parameters.AddWithValue("@NRC", nrc);
+                cmd.Parameters.AddWithValue("@ID", Id);
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        result = true;
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+        public int UpdateStudent(StudentUpdateRequestModel requestModel, string userId)
+        {
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.UpdateUser;
+                cmd.Parameters.AddWithValue("@ID", requestModel.Id);
+                cmd.Parameters.AddWithValue("@STUDENTNO", requestModel.StudentNo);
+                cmd.Parameters.AddWithValue("@NAME", requestModel.Name);
+                cmd.Parameters.AddWithValue("@FATHERNAME", requestModel.FatherName);
+                cmd.Parameters.AddWithValue("@NRC", requestModel.NRC);
+                cmd.Parameters.AddWithValue("@ADDRESS", requestModel.Address);
+                cmd.Parameters.AddWithValue("@PHONE", requestModel.Phone);
+                cmd.Parameters.AddWithValue("@EMAIL", GetNull(requestModel.Email));
+                cmd.Parameters.AddWithValue("@GENDER", requestModel.Gender);
+                cmd.Parameters.AddWithValue("@DOB", requestModel.DateOfBirth);
+                cmd.Parameters.AddWithValue("@UNIVERSITYID", requestModel.UniversityId);
+                cmd.Parameters.AddWithValue("@MAJORID", requestModel.MajorId);
+                cmd.Parameters.AddWithValue("@ACADEMICYEARID", requestModel.AcademicyearId);
+                cmd.Parameters.AddWithValue("@ISDELETE", "0");
+                cmd.Parameters.AddWithValue("@UPDATEDDATE", DateTime.Now.ToString());
+                cmd.Parameters.AddWithValue("@UPDATEDUSERID", userId);
+
+                int affectedRowCount = cmd.ExecuteNonQuery();
+                con.Close();
+                return affectedRowCount;
+            }
+        }
     }
 }

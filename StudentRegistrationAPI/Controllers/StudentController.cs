@@ -86,5 +86,62 @@ namespace StudentRegistrationAPI.Controllers
 
             return await Task.FromResult(responseMessage);
         }
+    
+        [SessionFilter]
+        [DecryptionFilter]
+        [HttpPost]
+        [Route("Delete")]
+        public async Task<HttpResponseMessage> Delete(ApiRequestModel request)
+        {
+            ApiResponseModel response = new ApiResponseModel();
+            StudentDeleteRequestModel requestModel = new StudentDeleteRequestModel();
+            StudentDeleteResponseModel responseModel = new StudentDeleteResponseModel();
+
+            requestModel = JsonConvert.DeserializeObject<StudentDeleteRequestModel>(request.JsonStringRequest);
+
+            StudentService studentService = new StudentService();
+            responseModel = studentService.DeleteStudent(requestModel, request.UserId);
+
+            var responseData = JsonConvert.SerializeObject(responseModel);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.RespCode = responseModel.RespCode;
+            response.RespDescription = responseModel.RespDescription;
+
+            responseMessage = new HttpResponseMessage()
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(response))
+            };
+
+            return await Task.FromResult(responseMessage);
+        }
+
+        [SessionFilter]
+        [DecryptionFilter]
+        [HttpPost]
+        [Route("Update")]
+        public async Task<HttpResponseMessage> Update(ApiRequestModel request)
+        {
+            ApiResponseModel response = new ApiResponseModel();
+            StudentUpdateRequestModel requestModel = new StudentUpdateRequestModel();
+            CreateStudentResponseModel responseModel = new CreateStudentResponseModel();
+
+            requestModel = JsonConvert.DeserializeObject<StudentUpdateRequestModel>(request.JsonStringRequest);
+
+            StudentService studentService = new StudentService();
+            responseModel = studentService.UpdateStudent(requestModel, request.UserId);
+
+            var responseData = JsonConvert.SerializeObject(responseModel);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, hardcodeKey, hardcodeIV);
+            response.RespCode = responseModel.RespCode;
+            response.RespDescription = responseModel.RespDescription;
+
+            responseMessage = new HttpResponseMessage()
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(response))
+            };
+
+            return await Task.FromResult(responseMessage);
+        }
+
     }
 }
