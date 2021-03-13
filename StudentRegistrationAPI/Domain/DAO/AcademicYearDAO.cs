@@ -38,22 +38,23 @@ namespace StudentRegistrationAPI.Domain.DAO
             return yearName;
         }
 
-        public List<AcademicYearModel> GetAllAcademicYear()
+        public List<AcademicYearModel> GetAllAcademicYearByMajorId(int majorId)
         {
             List<AcademicYearModel> yearList = new List<AcademicYearModel>();
             using (SqlConnection con = this.OpenConnection())
             {
                 var cmd = con.CreateCommand();
-                cmd.CommandText = SqlResources.SelectAllAcademicyear;
+                cmd.CommandText = SqlResources.SelectAllAcademicyearByMajorId;
+                cmd.Parameters.AddWithValue("@MajorId", majorId);
 
                 using (SqlDataReader rd = cmd.ExecuteReader())
                 {
                     while (rd.Read())
                     {
                         AcademicYearModel yearModel = new AcademicYearModel();
-                        yearModel.Id = GetValue<string>(rd["ID"]);
+                        yearModel.Id = GetValue<int>(rd["ID"]).ToString();
                         yearModel.Name = GetValue<string>(rd["NAME"]);
-                        yearModel.MajorId = GetValue<string>(rd["MAJORID"]);
+                        yearModel.MajorId = GetValue<int>(rd["MAJORID"]).ToString();
 
                         yearList.Add(yearModel);
                     }

@@ -38,22 +38,23 @@ namespace StudentRegistrationAPI.Domain.DAO
             return majorName;
         }
 
-        public List<MajorModel> GetAllMajor()
+        public List<MajorModel> GetAllMajorByUniversityId(int universityId)
         {
             List<MajorModel> majorList = new List<MajorModel>();
             using (SqlConnection con = this.OpenConnection())
             {
                 var cmd = con.CreateCommand();
-                cmd.CommandText = SqlResources.SelectAllMajor;
+                cmd.CommandText = SqlResources.SelectAllMajorByUniversityId;
+                cmd.Parameters.AddWithValue("@UniversityId", universityId);
 
                 using (SqlDataReader rd = cmd.ExecuteReader())
                 {
                     while (rd.Read())
                     {
                         MajorModel major = new MajorModel();
-                        major.Id = GetValue<string>(rd["ID"]);
+                        major.Id = GetValue<int>(rd["ID"]).ToString();
                         major.Name = GetValue<string>(rd["NAME"]);
-                        major.UniversityId = GetValue<string>(rd["UNIVERSITYID"]);
+                        major.UniversityId = GetValue<int>(rd["UNIVERSITYID"]).ToString();
 
                         majorList.Add(major);
                     }

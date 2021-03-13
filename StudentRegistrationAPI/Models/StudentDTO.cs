@@ -5,7 +5,7 @@ using System.Web;
 
 namespace StudentRegistrationAPI.Models
 {
-    public class StudentDTO
+    public class StudentDTO : BaseResponseModel
     {
         public string Id { get; set; }
         public string StudentNo { get; set; }

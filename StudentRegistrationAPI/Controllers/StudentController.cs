@@ -143,5 +143,33 @@ namespace StudentRegistrationAPI.Controllers
             return await Task.FromResult(responseMessage);
         }
 
+        [SessionFilter]
+        [DecryptionFilter]
+        [HttpPost]
+        [Route("GetStudentById")]
+        public async Task<HttpResponseMessage> GetStudentById(ApiRequestModel request)
+        {
+            ApiResponseModel response = new ApiResponseModel();
+            StudentDTO responseModel = new StudentDTO();
+            StudentUpdateRequestModel requestModel = new StudentUpdateRequestModel();
+
+            StudentService studentService = new StudentService();
+            requestModel = JsonConvert.DeserializeObject<StudentUpdateRequestModel>(request.JsonStringRequest);
+
+            responseModel = studentService.GetStudentById(Int32.Parse(requestModel.Id));
+
+            var responseData = JsonConvert.SerializeObject(responseModel);
+            response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);
+            response.RespCode = responseModel.RespCode;
+            response.RespDescription = responseModel.RespDescription;
+
+            responseMessage = new HttpResponseMessage()
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(response))
+            };
+
+            return await Task.FromResult(responseMessage);
+        }
+
     }
 }

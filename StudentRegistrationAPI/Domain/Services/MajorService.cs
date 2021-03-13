@@ -10,13 +10,13 @@ namespace StudentRegistrationAPI.Domain.Services
 {
     public class MajorService
     {
-        public MajorListResponseModel GetAllMajor()
+        public MajorListResponseModel GetAllMajorByUniversityId(int universityId)
         {
             MajorListResponseModel responseModel = new MajorListResponseModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
             MajorDAO majorDAO = new MajorDAO();
             List<MajorModel> majorList = new List<MajorModel>();
 
-            majorList = majorDAO.GetAllMajor();
+            majorList = majorDAO.GetAllMajorByUniversityId(universityId);
             responseModel.MajorList = majorList;
 
             return responseModel;

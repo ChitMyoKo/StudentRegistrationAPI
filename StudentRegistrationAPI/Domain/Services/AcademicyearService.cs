@@ -10,13 +10,13 @@ namespace StudentRegistrationAPI.Domain.Services
 {
     public class AcademicyearService
     {
-        public AcademicYearListResponseModel GetAllAcademicyear()
+        public AcademicYearListResponseModel GetAllAcademicYearByMajorId(int majorId)
         {
             AcademicYearListResponseModel responseModel = new AcademicYearListResponseModel() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
             AcademicYearDAO yearDAO = new AcademicYearDAO();
             List<AcademicYearModel> yearList = new List<AcademicYearModel>();
 
-            yearList = yearDAO.GetAllAcademicYear();
+            yearList = yearDAO.GetAllAcademicYearByMajorId(majorId);
             responseModel.YearList = yearList;
 
             return responseModel;

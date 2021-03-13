@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace StudentRegistrationAPI.Controllers
 {
-    [RoutePrefix("Academicyear")]
+    [RoutePrefix("API/Academicyear")]
     public class AcademicyearController : ApiController
     {
         string hardcodeIV = Helper.HardCodeIVForAES();
@@ -26,10 +26,13 @@ namespace StudentRegistrationAPI.Controllers
         public async Task<HttpResponseMessage> GetAcademicyearList(ApiRequestModel request)
         {
             ApiResponseModel response = new ApiResponseModel();
+            AcademicYearModel academicYearModel = new AcademicYearModel();
             AcademicYearListResponseModel responseModel = new AcademicYearListResponseModel();
 
             AcademicyearService yearService = new AcademicyearService();
-            responseModel = yearService.GetAllAcademicyear();
+
+            academicYearModel = JsonConvert.DeserializeObject<AcademicYearModel>(request.JsonStringRequest);
+            responseModel = yearService.GetAllAcademicYearByMajorId(Int32.Parse(academicYearModel.MajorId));
 
             var responseData = JsonConvert.SerializeObject(responseModel);
             response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);

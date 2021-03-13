@@ -26,10 +26,14 @@ namespace StudentRegistrationAPI.Controllers
         public async Task<HttpResponseMessage> GetUniversityList(ApiRequestModel request)
         {
             ApiResponseModel response = new ApiResponseModel();
-            MajorListResponseModel responseModel = new MajorListResponseModel();
 
+            MajorListResponseModel responseModel = new MajorListResponseModel();
+            MajorModel majorModel = new MajorModel();
             MajorService majorService = new MajorService();
-            responseModel = majorService.GetAllMajor();
+
+            majorModel = JsonConvert.DeserializeObject<MajorModel>(request.JsonStringRequest);
+
+            responseModel = majorService.GetAllMajorByUniversityId(Int32.Parse(majorModel.UniversityId));
 
             var responseData = JsonConvert.SerializeObject(responseModel);
             response.JsonStringResponse = RijndaelCrypt.EncryptAES(responseData, request.DynamicKey, hardcodeIV);

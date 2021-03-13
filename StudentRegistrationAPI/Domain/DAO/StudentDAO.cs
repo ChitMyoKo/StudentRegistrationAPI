@@ -175,7 +175,7 @@ namespace StudentRegistrationAPI.Domain.DAO
             using (SqlConnection con = this.OpenConnection())
             {
                 var cmd = con.CreateCommand();
-                cmd.CommandText = SqlResources.SelectStudnetByStudentNoForUpdate;
+                cmd.CommandText = SqlResources.SelectStudnetByNRCForUpdate;
                 cmd.Parameters.AddWithValue("@NRC", nrc);
                 cmd.Parameters.AddWithValue("@ID", Id);
 
@@ -220,6 +220,44 @@ namespace StudentRegistrationAPI.Domain.DAO
                 con.Close();
                 return affectedRowCount;
             }
+        }
+
+        public StudentDTO GetStudentById(int Id)
+        {
+            StudentDTO student = null;
+
+            using (SqlConnection con = this.OpenConnection())
+            {
+                var cmd = con.CreateCommand();
+                cmd.CommandText = SqlResources.SelectStudentById;
+                cmd.Parameters.AddWithValue("@Id", Id);
+
+                using (SqlDataReader rd = cmd.ExecuteReader())
+                {
+                    while (rd.Read())
+                    {
+                        student = new StudentDTO();
+                        student.Id = GetValue<int>(rd["ID"]).ToString();
+                        student.StudentNo = GetValue<string>(rd["STUDENTNO"]);
+                        student.Name = GetValue<string>(rd["NAME"]);
+                        student.FatherName = GetValue<string>(rd["FATHERNAME"]);
+                        student.NRC = GetValue<string>(rd["NRC"]);
+                        student.Address = GetValue<string>(rd["ADDRESS"]);
+                        student.Phone = GetValue<string>(rd["PHONE"]);
+                        student.Email = GetValue<string>(rd["EMAIL"]);
+                        student.Gender = GetValue<string>(rd["GENDER"]);
+                        student.DateOfBirth = GetValue<string>(rd["DOB"]);
+                        student.UniversityId = GetValue<int>(rd["UNIVERSITYID"]).ToString();
+                        student.MajorId = GetValue<int>(rd["MAJORID"]).ToString();
+                        student.AcademicyearId = GetValue<int>(rd["ACADEMICYEARID"]).ToString();
+
+                    }
+
+                    rd.Close();
+                }
+                con.Close();
+            }
+            return student;
         }
     }
 }

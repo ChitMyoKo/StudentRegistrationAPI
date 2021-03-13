@@ -87,7 +87,7 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UPDATE TBL_STUDENT SET ISDELETE = 1, UPDATEDUSERID = @UPDATEDUSERID, UPDATEDDATE = @UPDATEDDATE WHERE ID = @ID;.
+        ///   Looks up a localized string similar to UPDATE TBL_STUDENT SET ISDELETE = 1, UPDATEDUSERID = @UPDATEDUSERID, UPDATEDATE = @UPDATEDDATE WHERE ID = @ID;.
         /// </summary>
         public static string DeleteStudent {
             get {
@@ -96,7 +96,7 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO TBL_LOGIN (USERID, SESSIONID, DYNAMICKEY, SESSIONEXPIREDATE, LOGINDATE) VALUES (@USERID, @SESSIONID, @DYNAMICKEY, @SESSIONEXPIREDATE, @LOGINDATE);.
+        ///   Looks up a localized string similar to INSERT INTO TBL_LOGIN (USERID, SESSIONID, DYNAMICKEY, SESSIONEXPIRDATE, LOGINDATE) VALUES (@USERID, @SESSIONID, @DYNAMICKEY, @SESSIONEXPIREDATE, @LOGINDATE);.
         /// </summary>
         public static string InsertLogin {
             get {
@@ -125,20 +125,20 @@ namespace StudentRegistrationAPI.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM TBL_ACADEMICYEAR WHERE ISDELETE = 0;.
+        ///   Looks up a localized string similar to SELECT * FROM TBL_ACADEMICYEAR WHERE ISDELETE = 0 AND MAJORID=@MajorId;.
         /// </summary>
-        public static string SelectAllAcademicyear {
+        public static string SelectAllAcademicyearByMajorId {
             get {
-                return ResourceManager.GetString("SelectAllAcademicyear", resourceCulture);
+                return ResourceManager.GetString("SelectAllAcademicyearByMajorId", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM TBL_MAJOR WHERE ISDELETE = 0;.
+        ///   Looks up a localized string similar to SELECT * FROM TBL_MAJOR WHERE ISDELETE = 0 and UNIVERSITYID=@UniversityId;.
         /// </summary>
-        public static string SelectAllMajor {
+        public static string SelectAllMajorByUniversityId {
             get {
-                return ResourceManager.GetString("SelectAllMajor", resourceCulture);
+                return ResourceManager.GetString("SelectAllMajorByUniversityId", resourceCulture);
             }
         }
         
@@ -166,6 +166,15 @@ namespace StudentRegistrationAPI.Resources {
         public static string SelectMajorById {
             get {
                 return ResourceManager.GetString("SelectMajorById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT * FROM TBL_STUDENT WHERE ID = @Id;.
+        /// </summary>
+        public static string SelectStudentById {
+            get {
+                return ResourceManager.GetString("SelectStudentById", resourceCulture);
             }
         }
         

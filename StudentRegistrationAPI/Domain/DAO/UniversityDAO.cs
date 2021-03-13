@@ -51,7 +51,7 @@ namespace StudentRegistrationAPI.Domain.DAO
                     while (rd.Read())
                     {
                         UniversityModel university = new UniversityModel();
-                        university.Id = GetValue<string>(rd["ID"]);
+                        university.Id = GetValue<int>(rd["ID"]).ToString();
                         university.Name = GetValue<string>(rd["NAME"]);
 
                         uniList.Add(university);

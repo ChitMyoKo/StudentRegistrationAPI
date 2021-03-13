@@ -142,5 +142,30 @@ namespace StudentRegistrationAPI.Domain.Services
 
             return responseModel;
         }
+
+        public StudentDTO GetStudentById(int Id)
+        {
+            StudentDTO responseModel = new StudentDTO() { RespCode = ResponseCode.C000, RespDescription = Message.M000 };
+
+            StudentDAO studentDAO = new StudentDAO();
+            UniversityDAO universityDAO = new UniversityDAO();
+            MajorDAO majorDAO = new MajorDAO();
+            AcademicYearDAO academicYearDAO = new AcademicYearDAO();
+            StudentDTO student = null;
+
+            student = studentDAO.GetStudentById(Id);
+
+            if (student!=null)
+            {
+                student.UniversityName = universityDAO.GetUniversityNameById(student.UniversityId);
+                student.MajorName = majorDAO.GetMajorNameById(student.MajorId);
+                student.AcademicyearName = academicYearDAO.GetAcademicYearNameById(student.AcademicyearId);
+                student.RespCode = ResponseCode.C000;
+                student.RespDescription = Message.M000;
+            }
+            responseModel = student;
+
+            return responseModel;
+        }
     }
 }
